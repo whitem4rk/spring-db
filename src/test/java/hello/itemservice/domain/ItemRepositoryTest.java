@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 
 import java.util.List;
@@ -18,19 +19,20 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
+@Transactional
 class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
 
-    @Autowired
-    PlatformTransactionManager transactionManager;
-    TransactionStatus status;
-
-    @BeforeEach
-    void beforeEach() {
-        status = transactionManager.getTransaction(new DefaultTransactionAttribute());
-    }
+//    @Autowired
+//    PlatformTransactionManager transactionManager;
+//    TransactionStatus status;
+//
+//    @BeforeEach
+//    void beforeEach() {
+//        status = transactionManager.getTransaction(new DefaultTransactionAttribute());
+//    }
 
     @AfterEach
     void afterEach() {
@@ -39,7 +41,7 @@ class ItemRepositoryTest {
             ((MemoryItemRepository) itemRepository).clearStore();
         }
 
-        transactionManager.rollback(status);
+//        transactionManager.rollback(status);
     }
 
     @Test
